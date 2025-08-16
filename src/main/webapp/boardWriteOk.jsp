@@ -1,5 +1,10 @@
-<%@page import="java.sql.Statement"%>
+<%@page import="com.ddu.member.boardDto"%>
 <%@page import="java.sql.DriverManager"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="com.ddu.member.memberDto"%>
+<%@page import="java.util.List"%>
+<%@page import="java.sql.ResultSet"%>
+<%@page import="java.sql.Statement"%>
 <%@page import="java.sql.Connection"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
@@ -7,17 +12,17 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>회원가입 처리</title>
+<title>게시글 리스트</title>
 </head>
 <body>
-
 	<%
 		request.setCharacterEncoding("utf-8");
 	
-		String mid = request.getParameter("mid");
-		String mpw = request.getParameter("mpw");
-		String mname = request.getParameter("mname");
-		String memail = request.getParameter("memail");
+		String bnum = request.getParameter("bnum");
+		String btitle = request.getParameter("btitle");
+		String bcontent = request.getParameter("bcontent");
+		String member_id = request.getParameter("member_id");
+		String bdate = request.getParameter("bdate");
 		// DB에 삽입할 데이터 준비 완료
 		
 		// DB 커넥션 준비
@@ -28,10 +33,11 @@
 		String password = "12345";
 		
 		// sql문 만들기
-		String sql = "INSERT INTO members(member_id, member_pw, member_name, member_email) VALUES('" + mid + "','" + mpw + "','" + mname + "','" + memail + "')";
+		String sql = "INSERT INTO board(btitle, bcontent, member_id) VALUES('" + btitle + "','" + bcontent + "','" + member_id +  "')";
 	
 		Connection conn = null; // connection 인터페이스로 선언 후 null값으로 초기화 (인스턴스화XX)
 		Statement stmt = null; // sql문을 관리(실행)해주는 객체를 선언해주는 인터페이스로 stmt 선언 후 null값으로 초기화(인스턴스화 XX)
+		
 		try {
 			Class.forName(driverName); // mysql 드라이버 클래스 불러오기
 			conn = DriverManager.getConnection(url, username, password);	
@@ -58,6 +64,6 @@
 			}	
 		}
 	%>
-	<a href="boardWrite.jsp?member_id=<%= mid%>">글 쓰러 가기</a>
+	<a href="boardList.jsp">게시글리스트 보기</a>
 </body>
 </html>
