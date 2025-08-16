@@ -7,17 +7,14 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>회원가입 처리</title>
+<title>회원 탈퇴 처리</title>
 </head>
 <body>
 
 	<%
 		request.setCharacterEncoding("utf-8");
 	
-		String mid = request.getParameter("mid");
-		String mpw = request.getParameter("mpw");
-		String mname = request.getParameter("mname");
-		String memail = request.getParameter("memail");
+		String mid = request.getParameter("outid");
 		// DB에 삽입할 데이터 준비 완료
 		
 		// DB 커넥션 준비
@@ -28,7 +25,7 @@
 		String password = "12345";
 		
 		// sql문 만들기
-		String sql = "INSERT INTO members(member_id, member_pw, member_name, member_email) VALUES('" + mid + "','" + mpw + "','" + mname + "','" + memail + "')";
+		String sql = "DELETE FROM members WHERE member_id= '" + mid + "'";
 	
 		Connection conn = null; // connection 인터페이스로 선언 후 null값으로 초기화 (인스턴스화XX)
 		Statement stmt = null; // sql문을 관리(실행)해주는 객체를 선언해주는 인터페이스로 stmt 선언 후 null값으로 초기화(인스턴스화 XX)
@@ -40,8 +37,14 @@
 			stmt = conn.createStatement(); // stmt 객체 생성 
 			int sqlResult = stmt.executeUpdate(sql);
 			// sql문을 DB로 보내서 실행해줌 -> 성공하면 1을 반환, 실패면 1이 아닌 값을 반환 (영향을 받은 행의 갯수)
-			
-			System.out.print("sqlResult : " + sqlResult);
+			System.out.println("sqlResult : " + sqlResult);
+			if(sqlResult == 1) {
+				out.println(mid + "님 회원 탈퇴 성공!");
+				
+			}else {
+				out.println(mid + "님은 없는 아이디 입니다.");
+				
+			}
 			
 		} catch(Exception e) {	
 			out.print("DB 에러 발생 ! 회원가입 실패!");
