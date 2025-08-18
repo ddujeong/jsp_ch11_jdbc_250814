@@ -92,11 +92,11 @@
 			</tr>
 		</thead>
 		<tbody>
-		<c:forEach var="boardDto" items="${boardList }">
+		<c:forEach var="boardDto" items="${boardList }" >
 			
 				<tr>
 					<td>${boardDto.bnum}</td>
-					<td>${boardDto.btitle }</td>
+					<td><a href="#">${boardDto.btitle }</a></td>
 					<td>${boardDto.bcontent }</td>
 					<td>${boardDto.member_id }</td>
 					<td>${boardDto.bdate }</td>

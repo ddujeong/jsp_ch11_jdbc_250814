@@ -1,7 +1,7 @@
 package com.ddu.member;
 
 public class boardDto {
-	private String bnum;
+	private int bnum;
 	private String btitle;
 	private String bcontent;
 	private String member_id;
@@ -10,7 +10,7 @@ public class boardDto {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public boardDto(String bnum, String btitle, String bcontent, String member_id, String bdate) {
+	public boardDto(int bnum, String btitle, String bcontent, String member_id, String bdate) {
 		super();
 		this.bnum = bnum;
 		this.btitle = btitle;
@@ -18,10 +18,10 @@ public class boardDto {
 		this.member_id = member_id;
 		this.bdate = bdate;
 	}
-	public String getBnum() {
+	public int getBnum() {
 		return bnum;
 	}
-	public void setBnum(String bnum) {
+	public void setBnum(int bnum) {
 		this.bnum = bnum;
 	}
 	public String getBtitle() {

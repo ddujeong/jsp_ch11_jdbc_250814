@@ -27,7 +27,7 @@
 		String password = "12345";
 		
 		// sql문 만들기
-		String sql = "SELECT * FROM members";
+		String sql = "SELECT * FROM members ORDER BY member_date DESC";
 	
 		Connection conn = null; // connection 인터페이스로 선언 후 null값으로 초기화 (인스턴스화XX)
 		Statement stmt = null; // sql문을 관리(실행)해주는 객체를 선언해주는 인터페이스로 stmt 선언 후 null값으로 초기화(인스턴스화 XX)

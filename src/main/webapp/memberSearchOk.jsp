@@ -1,3 +1,4 @@
+<%@page import="java.sql.PreparedStatement"%>
 <%@page import="java.sql.ResultSet"%>
 <%@page import="java.sql.Statement"%>
 <%@page import="java.sql.DriverManager"%>
@@ -27,20 +28,21 @@
 		String password = "12345";
 		
 		// sql문 만들기
-		String sql = "SELECT * FROM members WHERE member_id= '" + mid + "'";
+		String sql = "SELECT * FROM members WHERE member_id=?";
 	
 		Connection conn = null; // connection 인터페이스로 선언 후 null값으로 초기화 (인스턴스화XX)
-		Statement stmt = null; // sql문을 관리(실행)해주는 객체를 선언해주는 인터페이스로 stmt 선언 후 null값으로 초기화(인스턴스화 XX)
+		PreparedStatement pstmt = null; // sql문을 관리(실행)해주는 객체를 선언해주는 인터페이스로 stmt 선언 후 null값으로 초기화(인스턴스화 XX)
 		ResultSet rs = null; // selest문 실행시 db에서 반환해주는 레코드의 값을 받아줄 rs
 		
 		try {
 			Class.forName(driverName); // mysql 드라이버 클래스 불러오기
 			conn = DriverManager.getConnection(url, username, password);	
 			// connection 이 메모리에 생성(DB와 연결 커넥션 conn 생성)
-			stmt = conn.createStatement(); // stmt 객체 생성 
+			pstmt = conn.prepareStatement(sql); // stmt 객체 생성 
 			//int sqlResult = stmt.executeUpdate(sql);
+			pstmt.setString(1, mid);
 			// sql문을 DB로 보내서 실행해줌 -> 성공하면 1을 반환, 실패면 1이 아닌 값을 반환 (영향을 받은 행의 갯수)
-			rs =  stmt.executeQuery(sql); 
+			rs =  pstmt.executeQuery(); 
 			// SELECT문 실행 -> 결과가 DB로 반환 -> 결과(레코드)를 받아주는 ResultSet 타입 객체로 받아야함
 			/* String sid= null;
 			
@@ -81,8 +83,8 @@
 				if(rs != null){ // stmt 가 null이 아니면 닫기 (conn 보다 먼저 닫아야함)
 					rs.close();
 				}
-				if(stmt != null){ // stmt 가 null이 아니면 닫기 (conn 보다 먼저 닫아야함)
-				stmt.close();
+				if(pstmt != null){ // stmt 가 null이 아니면 닫기 (conn 보다 먼저 닫아야함)
+				pstmt.close();
 				}
 				if(conn != null){ // connection이 null이 아닐 때만 닫기
 				conn.close();
